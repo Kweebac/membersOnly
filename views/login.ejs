@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
+    <title>Login</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
@@ -20,34 +20,12 @@
       </ul>
     </header>
     <main>
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form method="post">
         <div>
           <label
-            >First name:
-            <input
-              type="text"
-              name="firstName"
-              value="<%= user ? user.firstName : '' %>"
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label
-            >Last name:
-            <input
-              type="text"
-              name="lastName"
-              value="<%= user ? user.lastName : '' %>"
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label
             >Email:
-            <input type="email" name="email" value="<%= user ? user.email : '' %>" required />
+            <input type="email" name="email" required />
           </label>
         </div>
         <div>
@@ -56,13 +34,7 @@
             <input type="password" name="password" required />
           </label>
         </div>
-        <div>
-          <label
-            >Confirm password:
-            <input type="password" name="passwordConfirmation" required />
-          </label>
-        </div>
-        <button>Register</button>
+        <button>Login</button>
       </form>
       <ul>
         <% errors.map((error) => { %>

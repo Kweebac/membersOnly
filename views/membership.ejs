@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Membership</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <header>
       <ul>
         <li><a href="/">Home</a></li>
-        <% if (currentUser) { if(!currentUser.membership) {%>
+        <% if (currentUser) { %>
         <li><a href="/membership">Become a Member</a></li>
-        <% } %>
         <li>Logout</li>
         <% } else { %>
         <li><a href="/login">Login</a></li>
@@ -21,7 +20,22 @@
       </ul>
     </header>
     <main>
-      <h1>Home</h1>
+      <h1>Membership</h1>
+      <p>Enter the secret code to become a Member</p>
+      <form method="post">
+        <div>
+          <label
+            >Secret code
+            <input type="text" name="secretCode" value="<%= secretCode ? secretCode : '' %>" />
+          </label>
+        </div>
+        <button>Submit</button>
+      </form>
+      <ul>
+        <% errors.map((error) => { %>
+        <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
     </main>
   </body>
 </html>
