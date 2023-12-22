@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
+const flash = require("express-flash");
 
 mongoose.connect(process.env.MONGO_PRIVATE_URL);
 
@@ -46,6 +47,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {

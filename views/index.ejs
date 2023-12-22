@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Messages</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <header>
       <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="/">Messages</a></li>
         <% if (currentUser) { if(!currentUser.membership) {%>
         <li><a href="/membership">Become a Member</a></li>
         <% } %>
-        <li>Logout</li>
+        <li><a href="/logout">Logout</a></li>
         <% } else { %>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
@@ -21,7 +21,7 @@
       </ul>
     </header>
     <main>
-      <h1>Home</h1>
+      <h1>Messages</h1>
     </main>
   </body>
 </html>

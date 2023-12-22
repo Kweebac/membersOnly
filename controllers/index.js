@@ -59,18 +59,14 @@ router.post("/register", [
   },
 ]);
 
-router.get("/login", checkNotAuthenticated, (req, res) =>
-  res.render("login", {
-    user: undefined,
-    errors: [],
-  })
-);
+router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 router.post("/login", [
   body("email").escape().trim(),
   body("password").escape().trim(),
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
+    failureFlash: true,
   }),
 ]);
 
@@ -105,5 +101,12 @@ router.post("/membership", [
     }
   },
 ]);
+
+router.get("/logout", function (req, res, next) {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
+});
 
 module.exports = router;

@@ -9,10 +9,11 @@
   <body>
     <header>
       <ul>
-        <li><a href="/">Home</a></li>
-        <% if (currentUser) { %>
+        <li><a href="/">Messages</a></li>
+        <% if (currentUser) { if(!currentUser.membership) {%>
         <li><a href="/membership">Become a Member</a></li>
-        <li>Logout</li>
+        <% } %>
+        <li><a href="/logout">Logout</a></li>
         <% } else { %>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
@@ -37,9 +38,9 @@
         <button>Login</button>
       </form>
       <ul>
-        <% errors.map((error) => { %>
-        <li><%= error.msg %></li>
-        <% }); %>
+        <% if (messages.error) { %>
+        <li><%= messages.error %></li>
+        <% }; %>
       </ul>
     </main>
   </body>
