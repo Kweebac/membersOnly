@@ -14,7 +14,13 @@ function checkNotAuthenticated(req, res, next) {
   else res.redirect("/");
 }
 
-router.get("/", (req, res) => res.render("index"));
+router.get("/", async (req, res) => {
+  const allMessages = await Message.find().populate("author").exec();
+
+  res.render("index", {
+    allMessages,
+  });
+});
 
 router.get("/register", checkNotAuthenticated, (req, res) =>
   res.render("register", {

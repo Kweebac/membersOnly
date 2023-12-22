@@ -30,3 +30,18 @@ form > button {
   cursor: pointer;
   box-shadow: lightgray 2px 2px 2px;
 }
+
+.message {
+  padding: 1rem;
+  background-color: lightgray;
+  border-radius: 12px;
+  width: max-content;
+  margin-top: 1rem;
+}
+.message > h3 {
+  margin: 0;
+}
+.message > .date {
+  font-size: 0.75rem;
+  color: rgb(81, 81, 81);
+}

@@ -25,6 +25,18 @@
       <% if (currentUser) { %>
       <a href="/newMessage">New message</a>
       <% }; %>
+      <section>
+        <% allMessages.map((message) => { %>
+        <div class="message">
+          <h3><%= message.title %></h3>
+          <% if (currentUser) { %>
+          <div>Author: <%= message.author.firstName %> <%= message.author.lastName %></div>
+          <% }; %>
+          <p><%= message.body %></p>
+          <div class="date">Date: <%= message.timestamp %></div>
+        </div>
+        <% }); %>
+      </section>
     </main>
   </body>
 </html>
