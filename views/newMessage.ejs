@@ -21,10 +21,34 @@
       </ul>
     </header>
     <main>
-      <h1>Messages</h1>
-      <% if (currentUser) { %>
-      <a href="/newMessage">New message</a>
-      <% }; %>
+      <h1>New message</h1>
+      <form method="post">
+        <div>
+          <label>
+            Title:
+            <input
+              type="text"
+              required
+              name="title"
+              value="<%= message ? message.title : '' %>"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Body:
+            <textarea cols="30" rows="10" required name="body">
+<%= message ? message.body : '' %></textarea
+            >
+          </label>
+        </div>
+        <button>Submit</button>
+      </form>
+      <ul>
+        <% errors.map((error) => { %>
+        <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
     </main>
   </body>
 </html>

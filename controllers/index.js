@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/user");
+const Message = require("../models/message");
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
@@ -108,5 +109,39 @@ router.get("/logout", function (req, res, next) {
     res.redirect("/");
   });
 });
+
+router.get("/newMessage", checkAuthenticated, (req, res) =>
+  res.render("newMessage", {
+    message: undefined,
+    errors: [],
+  })
+);
+router.post("/newMessage", [
+  body("title").escape().trim(),
+  body("body")
+    .escape()
+    .trim()
+    .isLength({ min: 15 })
+    .withMessage("Password must be at least 15 characters"),
+
+  async (req, res) => {
+    const message = new Message({
+      title: req.body.title,
+      body: req.body.body,
+      author: req.user,
+    });
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      await message.save();
+      res.redirect("/");
+    } else {
+      res.render("newMessage", {
+        message,
+        errors: errors.array(),
+      });
+    }
+  },
+]);
 
 module.exports = router;
