@@ -63,6 +63,15 @@
             <input type="password" name="passwordConfirmation" required />
           </label>
         </div>
+        <div>
+          <label>
+            Admin <% if (user && user.admin) { %>
+            <input type="checkbox" name="admin" value="true" checked />
+            <% } else { %>
+            <input type="checkbox" name="admin" />
+            <% }; %>
+          </label>
+        </div>
         <button>Register</button>
       </form>
       <ul>

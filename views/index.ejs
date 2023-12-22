@@ -22,18 +22,24 @@
     </header>
     <main>
       <h1>Messages</h1>
-      <% if (currentUser) { %>
+      <% if (currentUser && currentUser.membership) { %>
       <a href="/newMessage">New message</a>
       <% }; %>
       <section>
         <% allMessages.map((message) => { %>
         <div class="message">
           <h3><%= message.title %></h3>
-          <% if (currentUser) { %>
+          <% if (currentUser && currentUser.membership) { %>
           <div>Author: <%= message.author.firstName %> <%= message.author.lastName %></div>
           <% }; %>
           <p><%= message.body %></p>
           <div class="date">Date: <%= message.timestamp %></div>
+          <% if (currentUser && currentUser.admin) { %>
+          <form method="post">
+            <input type="text" name="id" value="<%= message._id %>" hidden />
+            <button>Delete</button>
+          </form>
+          <% }; %>
         </div>
         <% }); %>
       </section>

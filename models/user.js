@@ -8,5 +8,6 @@ module.exports = mongoose.model(
     email: { type: String, required: true },
     password: { type: String, required: true },
     membership: { type: Boolean, required: true },
+    admin: { type: Boolean, required: true },
   })
 );

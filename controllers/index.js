@@ -21,6 +21,14 @@ router.get("/", async (req, res) => {
     allMessages,
   });
 });
+router.post("/", async (req, res) => {
+  await Message.findByIdAndDelete(req.body.id).exec();
+  const allMessages = await Message.find().populate("author").exec();
+
+  res.render("index", {
+    allMessages,
+  });
+});
 
 router.get("/register", checkNotAuthenticated, (req, res) =>
   res.render("register", {
@@ -43,25 +51,31 @@ router.post("/register", [
     })
     .withMessage("Passwords don't match"),
 
-  async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: hashedPassword,
-      membership: false,
-    });
-
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      await user.save();
-      res.redirect("/login");
-    } else {
-      res.render("register", {
-        user,
-        errors: errors.array(),
+  async (req, res, next) => {
+    try {
+      req.body.admin = req.body.admin === "on" ? true : false;
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: hashedPassword,
+        membership: false,
+        admin: req.body.admin,
       });
+
+      const errors = validationResult(req);
+      if (errors.isEmpty()) {
+        await user.save();
+        res.redirect("/login");
+      } else {
+        res.render("register", {
+          user,
+          errors: errors.array(),
+        });
+      }
+    } catch (error) {
+      next(error);
     }
   },
 ]);

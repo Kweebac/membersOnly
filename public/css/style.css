@@ -20,7 +20,7 @@ ul {
 main {
   padding: 1.5rem;
 }
-form > button {
+button {
   margin-top: 1.5rem;
   width: 6rem;
   height: 2rem;
